@@ -3,7 +3,7 @@ djcelery.setup_loader()
 ROOT_PATH = os.path.dirname(__file__)
 # Django settings for the project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -94,7 +94,7 @@ INSTALLED_APPS = (
     'ticket',
     'django.contrib.flatpages'
 )
-
+LOGIN_URL = '/login/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1048576
 MAX_UPLOAD_SIZE = 1048576
 MAX_SUBMISSIONS = 100

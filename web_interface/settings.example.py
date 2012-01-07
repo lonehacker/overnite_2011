@@ -1,12 +1,12 @@
 from settings_base import *
 
-SERCER = 'server-address'
+SERVER = 'localhost'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'overnite',                  
-        'USER': 'username',                     
-        'PASSWORD': 'pass',                  
+        'USER': 'root',                     
+        'PASSWORD': 'anshul',                  
         'HOST': SERVER,          
         'PORT': '3306',                     
     }
