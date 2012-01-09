@@ -2,8 +2,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from ticket.models import Ticket, Answer
+from ticket.models import Ticket, Answer, TicketAlert
 from ticket.forms import TicketForm, AnswerForm
+from django.contrib.auth.models import User
 
 @login_required
 def submit_ticket(request):
@@ -13,6 +14,10 @@ def submit_ticket(request):
             ticket_obj = form.save(commit=False)
             ticket_obj.user = request.user
             ticket_obj.save()
+            message = "<hr/>You have new ticket<br/>****<b> %s</b> ****<br/>from<b> %s</b>"%(ticket_obj.query[:100], ticket_obj.user.username)
+            for u in User.objects.filter(is_superuser=True):
+                ta = TicketAlert(ticket=ticket_obj, user=u, read=False, message = message)
+                ta.save()
             return HttpResponseRedirect("/ticket/%d/"%(ticket_obj.id))
     else:
         form = TicketForm()
@@ -37,6 +42,10 @@ def show_ticket(request, id):
     else:
         ticket = get_object_or_404(Ticket, pk=id, user=request.user)
     answers = Answer.objects.all().filter(ticket = ticket)
+    ta_set = TicketAlert.objects.filter(user = request.user, ticket=ticket)
+    for t in ta_set:
+        t.read = True
+        t.save()
     
     if request.method == 'POST': # If the form has been submitted...
         form = AnswerForm(request.POST)
@@ -45,7 +54,17 @@ def show_ticket(request, id):
             answer_obj.user = request.user
             answer_obj.ticket = ticket
             answer_obj.save()
-            form = AnswerForm()
+            if ticket.user != request.user:
+                message = "<hr/>You have new answer for query<br/>****<b> %s</b> ****<br/>from <b>admin</b>"%(ticket.query[:100])
+                ta = TicketAlert(ticket=ticket, user=ticket.user, read=False,message =message)
+                ta.save()
+            else:
+                message = "<hr/>You have further query from <b>%s</b> related to<br/>**** <b>%s</b> ****<br/>"%(ticket.user.username,ticket.query[:100])
+                for u in User.objects.filter(is_superuser=True):
+                    ta = TicketAlert(ticket=ticket, user=u, read=False,message =message)
+                    ta.save()
+                
+            return HttpResponseRedirect("/ticket/%d/"%(ticket.id))
     else:
         form = AnswerForm()
         
@@ -58,3 +77,8 @@ def mark_solved(request, id):
     ticket.solved = True
     ticket.save()
     return HttpResponseRedirect("/ticket/")
+
+def show_alerts(request, username):
+    user = get_object_or_404(User, id=username)
+    alerts = TicketAlert.objects.filter(read=False, user=user)
+    return render_to_response("ticket/show_alerts.html",{"alerts":alerts})

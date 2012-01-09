@@ -21,4 +21,12 @@ class Answer(models.Model):
     
     def __unicode__(self):
         return self.answer
+
+class TicketAlert(models.Model):
+    user = models.ForeignKey(User)
+    ticket = models.ForeignKey(Ticket)
+    read = models.BooleanField()
+    message = models.TextField()
     
+    def __unicode__(self):
+        return self.message

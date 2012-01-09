@@ -5,14 +5,50 @@
 <meta name="copyright" content="Overnite - Kshitij 2011" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
+<script type="text/javascript" src="/media/js/jquery.js"></script>
+<script type="text/javascript" src="/media/js/jquery.jnotify.js"></script>
 <title>Overnite - Kshitij 2011</title>
 <link rel="stylesheet" type="text/css" href="/media/stylesheets/default.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="/media/stylesheets/print.css" media="print" />
+<link rel="stylesheet" type="text/css" href="/media/stylesheets/jquery.jnotify.css"  />
 {% block head %}{% endblock %}
+<script type="text/javascript"> 
+$(document).ready(function(){
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
+
+$('#StatusBar').jnotifyInizialize({
+                oneAtTime: true
+            })
+            $('#Notification')
+                .jnotifyInizialize({
+                    oneAtTime: false,
+                    appendType: 'append'
+                })
+                .css({ 'position': 'absolute',
+                    'marginTop': '20px',
+                    'right': '20px',
+                    'width': '250px',
+                    'z-index': '9999'
+                });
+setInterval(function(){
+
+$.get("/ticket/show-alerts/{{ request.user.id }}/", function(data){
+//if(data.trim().length>10){
+$('#Notification').html(data.trim());
+//alert(data.length);
+//}
+}
+)},5000);});</script>
 </head>
 
 <body>
-
+<div id="Notification" style="background:white;position:fixed;top:10;right:10;"></div>
 <div id="view">
   <!-- #header (main heading + logo with slogan) -->
   <div id="head">

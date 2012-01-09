@@ -19,4 +19,12 @@
 		<hr/>
 	</p>
 	{% endfor %}
+        
+        <a href="#" onclick="$.post('{% url popups-hide %}', {popup: 'popup1'},function(data){alert(data);});$('#popup1').fadeOut(); return false;">
+   Don't show this again</a>
+<div id = '#popup1'>
+        {% if show_popup.popup1 %}
+        <p>This is a notification.</p>
+        {% endif %}
+        </div>
 {% endblock %}

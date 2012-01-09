@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     (r'^register/a/team/(?P<team_id>\d+)/(?P<team_name>\w+)/(?P<password>\w+)/(?P<email>[-_.@\w]+)/$', 'main.views.reg_team'),
     (r'^credits/$', 'main.views.credits'),                       
     (r'^error/$', direct_to_template , {'template':'main/error.html'}),
-    (r'^instructions/$', direct_to_template , {'template':'main/instructions.html'}), 
+    (r'^instructions/$', direct_to_template , {'template':'main/instructions.html'}),
+    ('^popups/$', include("popups.urls")), 
 )

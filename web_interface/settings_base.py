@@ -78,7 +78,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
-    'django.core.context_processors.request',        
+    'django.core.context_processors.request',
+    'popups.context_processors.popups',        
 )
 
 INSTALLED_APPS = (
@@ -92,7 +93,8 @@ INSTALLED_APPS = (
     'djcelery',
     'main',
     'ticket',
-    'django.contrib.flatpages'
+    'django.contrib.flatpages',
+    'popups',
 )
 LOGIN_URL = '/login/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1048576
