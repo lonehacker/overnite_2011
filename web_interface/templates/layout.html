@@ -12,7 +12,9 @@
 <link rel="stylesheet" type="text/css" href="/media/stylesheets/print.css" media="print" />
 <link rel="stylesheet" type="text/css" href="/media/stylesheets/jquery.jnotify.css"  />
 {% block head %}{% endblock %}
+{% if request.user.id  %}
 <script type="text/javascript"> 
+
 $(document).ready(function(){
 if(typeof(String.prototype.trim) === "undefined")
 {
@@ -38,13 +40,14 @@ $('#StatusBar').jnotifyInizialize({
                 });
 setInterval(function(){
 
-$.get("/ticket/show-alerts/{{ request.user.id }}/", function(data){
+$.get("/ticket/show-alerts/", function(data){
 //if(data.trim().length>10){
 $('#Notification').html(data.trim());
 //alert(data.length);
 //}
 }
 )},5000);});</script>
+{% endif %}
 </head>
 
 <body>

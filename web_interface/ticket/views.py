@@ -78,7 +78,7 @@ def mark_solved(request, id):
     ticket.save()
     return HttpResponseRedirect("/ticket/")
 
-def show_alerts(request, username):
-    user = get_object_or_404(User, id=username)
+def show_alerts(request):
+    user = get_object_or_404(User, id=request.user.id)
     alerts = TicketAlert.objects.filter(read=False, user=user)
     return render_to_response("ticket/show_alerts.html",{"alerts":alerts})
