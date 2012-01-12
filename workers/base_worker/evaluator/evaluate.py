@@ -17,7 +17,8 @@ def checkOutput(givenpath,samplepath,testresult):
   s2=givenfile.readline()
 
   match_flag=1
-
+  if(s1==''):
+	  match_flag=0
   while((s1!='')and(s2!='')):        #condition for end of file
 
     #splitting to omit white space
