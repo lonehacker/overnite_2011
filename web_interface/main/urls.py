@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     (r'^credits/$', 'main.views.credits'),                       
     (r'^error/$', direct_to_template , {'template':'main/error.html'}),
     (r'^instructions/$', direct_to_template , {'template':'main/instructions.html'}),
+    (r'^ranking/$', 'main.views.ranking'),
 )

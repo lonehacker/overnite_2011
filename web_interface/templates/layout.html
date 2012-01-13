@@ -13,6 +13,9 @@
 <link rel="stylesheet" type="text/css" href="/media/stylesheets/jquery.jnotify.css"  />
 {% block head %}{% endblock %}
 {% if request.user.id  %}
+<style>
+#Notification ul a{color:blue;}
+</style>
 <script type="text/javascript"> 
 
 $(document).ready(function(){
@@ -32,34 +35,46 @@ $('#StatusBar').jnotifyInizialize({
                     oneAtTime: false,
                     appendType: 'append'
                 })
-                .css({ 'position': 'absolute',
-                    'marginTop': '20px',
-                    'right': '20px',
+                .css({ 'position': 'fixed',
+                    'margin': '20px',
                     'width': '250px',
-                    'z-index': '9999'
+                    'z-index': '9999',
+                    'padding':'10px',
+                    'background':'white',
+                    'border':'2px solid lightblue',
+                    'box-shadow':'0px 0px 7px black',
+                    'border-radius':'5px',
+                    'font-family':'cursive',
+                    'font-size':'14px',
+                    'color':'blue'
                 });
-setInterval(function(){
-
+var is_closed = 0;
+var interval = setTimeout(function a(){
 $.get("/ticket/show-alerts/", function(data){
-//if(data.trim().length>10){
-$('#Notification').html(data.trim());
-//alert(data.length);
-//}
+var div='<div style="position:absolute;right:5px;top:5px;cursor:pointer;"><img width=25px height=25px src="http://ktj.in/images/close.png" onclick={$("#Notification").hide();is_closed=1;}></img></div>';
+$('#Notification').html(data.trim()+div);
+if($('#Notification ul').html()==''){
+$('#Notification').hide();
 }
-)},5000);});</script>
+else $('#Notification').fadeIn();
+}
+);if(is_closed==0)a();},5000);});
+
+$('#Notification').html($('#Notification').html()+div);
+</script>
 {% endif %}
 </head>
 
 <body>
-<div id="Notification" style="background:white;position:fixed;top:10;right:10;"></div>
+<div id="Notification" ></div>
 <div id="view">
   <!-- #header (main heading + logo with slogan) -->
   <div id="head">
     <!-- main headings with search component -->
     <div id="main">
-      <img style="border:0;" src="http://ktj.in/images/ktjlogo.png" height="60" />
+      <!--<img style="border:0;" src="http://ktj.in/images/ktjlogo.png" height="60" />
 	  &nbsp;&nbsp;
-	  <img style="margin-top:5px;border:0;" src="http://yuva.ktj.in/images/iitlogo.png" height="45" align="top" />
+	  <img style="margin-top:5px;border:0;" src="http://yuva.ktj.in/images/iitlogo.png" height="45" align="top" />-->
 
 	 <div id="extra">
 	    {% if request.user.is_active %}
@@ -83,7 +98,8 @@ $('#Notification').html(data.trim());
         <li id="index_m"><a href="/contest/">Contest<span></span></a></li>
         <li id="index_m"><a href="/credits/">Credits<span></span></a></li>  
         <li id="index_m"><a href="/updates/">Updates<span></span></a></li>  
-        <li id="index_m"><a href="/ticket/">Queries<span></span></a></li>  
+        <li id="index_m"><a href="/ticket/">Queries<span></span></a></li>
+        <li id="index_m"><a href="/ranking/">Leaderboard<span></span></a></li>  
       </ul>
     </div>
     <!-- /main horizontal menu -->

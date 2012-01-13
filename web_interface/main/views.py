@@ -92,7 +92,13 @@ def problem_output(request, problem_id, testcase_id):
     else:
         raise Http404
        
-       
+@login_required
+def ranking(request):
+    marks = {}
+    for user in User.objects.all():
+        marks[user.username] = get_total_marks(user)
+    user_list = sorted(marks, key=marks.get, reverse=True)
+    return render_to_response('main/ranking.html',{'marks':marks,'user_list':user_list,})
 def reg_team(request, team_id, team_name, password, email):
     if request.GET.get('pass', False) == "paswrd":
         user = User(username=team_id, first_name=team_name)

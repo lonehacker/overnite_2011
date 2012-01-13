@@ -99,14 +99,14 @@ img.right { margin-right: 0 !important; }
 #foot       { height: 54px; background: #0f2132 url('/media/images/bg-foot.gif') no-repeat; }
 
 /* -- Main Menu -- */
-#mainMenu ul                { position: relative; height: 100%; }
+#mainMenu ul                { position: relative; height: 100%; margin-top: 40px;}
 #mainMenu li                { position: relative; float: left; }
-#mainMenu li a              { display: block; width: 121px; height: 27px; padding-top: 16px; float: left; font-size: .9em; color: #fff; text-decoration: none; text-align: center; background: url('/media/images/bg-menu_item.gif') 0 0 no-repeat; }
+#mainMenu li a              { display: block; width: 99px; height: 27px; padding-top: 16px; float: left; font-size: .9em; color: #fff; text-decoration: none; text-align: center; background: url('/media/images/bg-menu_item.gif') 0 0 no-repeat; }
 #mainMenu li.active a,
 #mainMenu li a:hover        { background-color: #0a1520; background-position: 0 -43px; }
 
 /* -- Search block -- */
-#extra { position: absolute; right: 12px; top: 10px; width: 33%; text-align: right; font-size:16px; color:#FFFFFF; }
+#extra { position: absolute; right: 12px; top: 10px; width: 33%; text-align: right; font-size:16px; color:#FFFFFF;margin-top: -40px; }
 
 /* -- Right (submenu) block -- */
 #menuBlock                      { width: 260px; float: right; }
