@@ -94,9 +94,11 @@ INSTALLED_APPS = (
     'main',
     'ticket',
     'django.contrib.flatpages',
+    'registration',
     
 )
 LOGIN_URL = '/login/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1048576
 MAX_UPLOAD_SIZE = 1048576
 MAX_SUBMISSIONS = 100
+ACCOUNT_ACTIVATION_DAYS = 2

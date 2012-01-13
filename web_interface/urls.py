@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     (r'^ticket/', include('ticket.urls')),    
     (r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'main/login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'main/logout.html'}),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT, 'show_indexes': False}), 
-    ('^popups/', include("popups.urls")),                      
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT, 'show_indexes': False}),
+    (r'^accounts/', include('registration.urls')), 
+                         
 )

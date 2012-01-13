@@ -8,5 +8,5 @@ urlpatterns = patterns('ticket.views',
                        (r'^(?P<id>\d+)/$', 'show_ticket'),
                        (r'^mark-solved/(?P<id>\d+)/$', 'mark_solved'),
                        (r'^show-alerts/', 'show_alerts'),
-                       ('^popups/', include("popups.urls")),
+                       
                        )
